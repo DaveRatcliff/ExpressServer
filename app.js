@@ -35,7 +35,8 @@ async function getPost() {
   // TODO -- Return result as an array or error
   try{
     //Set variable equal to max ID?
-    //let posts = [];
+    //let posts = new Array[];
+    //Can't create 100 objects to store each post for array
     //for loop creating array for each ID number until max
     //for(let i = 0; i <= ID; i++){
     //posts[i] = however i signify data comping through axios 
