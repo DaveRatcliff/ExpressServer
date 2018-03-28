@@ -39,6 +39,7 @@ async function getPost() {
     //for loop creating array for each ID number until max
     //for(let i = 0; i <= ID; i++){
     //posts[i] = however i signify data comping through axios 
+    //need to have each array contain a selection of data?
     //}
 
 
