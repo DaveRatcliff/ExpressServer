@@ -18,6 +18,9 @@ app.get('/posts', (req, res) => {
   })
   res.send('Hello!') 
   // TODO -- Use an HTML templating engine to feed in the list of posts and do the basic formatting
+  //for(let i = 0; i < ID (might need to redefine up here or make it global); i++)
+  //<h1> {{ posts[i]}} </h1>
+  //<h1><h1>
 })
 
 app.listen(3000, () => console.log('Listening on port 3000!'))
@@ -31,6 +34,12 @@ async function getPost() {
   }
   // TODO -- Return result as an array or error
   try{
+    //Set variable equal to max ID?
+    //let posts = [];
+    //for loop creating array for each ID number until max
+    //for(let i = 0; i <= ID; i++){
+    //posts[i] = however i signify data comping through axios 
+    //}
 
 
   } catch (error) {
