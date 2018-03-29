@@ -18,8 +18,8 @@ app.get('/posts', asyncMiddleware( async (req, res, next) => {
 }))
 
 app.get('posts/:id', asyncMiddleware( async (req, res, next) => { 
-  const postID = req.params.id
-  const post = await getPost(postID)
+  const id = req.params.id
+  const post = await getPost(id)
   return res.render('home', {post})
 }))
 
