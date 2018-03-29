@@ -23,16 +23,17 @@ app.get('posts/:id', asyncMiddleware( async (req, res, next) => {
   return res.send({post})
 }))
 
-
 app.get('api/posts', asyncMiddleware( async (req, res, next) => { 
   const posts = await getPosts()
   return res.JSON(posts)
 }))
 
+//res.render?
+
 async function getPosts() {
   try {
     const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
-    return response
+    return response.data
   } catch (error) {
     console.error(error)
   }
@@ -41,7 +42,7 @@ async function getPosts() {
 async function getPost(id) {
   try {
     const response = await axios.get(`https://jsonplaceholder.typicode.com/posts${id}`)
-    return response
+    return response.data
   } catch (error) {
     console.error(error)
   }
