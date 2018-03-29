@@ -12,16 +12,21 @@ const asyncMiddleware = fn =>
 
 app.listen(3000, () => console.log('Listening on port 3000!'))
 
-app.get('/posts', asyncMiddleware( (req, res) => { 
+app.get('/posts', asyncMiddleware( (req, res, next) => { 
   const posts = await getPosts()
   return res.send(posts)
 }))
 
-
-app.get( 'api/posts/:id', asyncMiddleware( (req, res) => { 
+app.get( 'posts/:id', asyncMiddleware( (req, res, next) => { 
   const posts = await getPosts()
   const postID = req.params.id
   return res.send(posts.postID)
+}))
+
+
+app.get( 'api/posts', asyncMiddleware( (req, res, next) => { 
+  const posts = await getPosts()
+  return res.JSON(posts)
 }))
 
 async function getPosts() {
