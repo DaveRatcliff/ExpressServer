@@ -1,7 +1,7 @@
 const axios = require('axios')
 const express = require('express')
 const handlebars = require('handlebars')
-const handlebarExpress = require("express-handlebars")
+const expressHandlebars = require("express-handlebars")
 const app = express()
 
 const asyncMiddleware = fn =>
