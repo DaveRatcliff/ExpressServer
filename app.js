@@ -17,13 +17,13 @@ app.get('/posts', asyncMiddleware( async (req, res, next) => {
   return res.render('home', {posts})
 }))
 
-app.get('posts/:id', asyncMiddleware( async (req, res, next) => { 
+app.get('/posts/:id', asyncMiddleware( async (req, res, next) => { 
   const id = req.params.id
   const post = await getPost(id)
   return res.render('home', {post})
 }))
 
-app.get('api/posts', asyncMiddleware( async (req, res, next) => { 
+app.get('/api/posts', asyncMiddleware( async (req, res, next) => { 
   const posts = await getPosts()
   return res.JSON(posts)
 }))
