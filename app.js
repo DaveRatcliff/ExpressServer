@@ -14,13 +14,13 @@ app.listen(3000, () => console.log('Listening on port 3000!'))
 
 app.get('/posts', asyncMiddleware( async (req, res, next) => { 
   const posts = await getPosts()
-  return res.send({posts})
+  return res.render('home', {posts})
 }))
 
 app.get('posts/:id', asyncMiddleware( async (req, res, next) => { 
   const postID = req.params.id
   const post = await getPost(postID)
-  return res.send({post})
+  return res.render('home', {post})
 }))
 
 app.get('api/posts', asyncMiddleware( async (req, res, next) => { 
