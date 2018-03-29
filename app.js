@@ -17,14 +17,14 @@ app.get('/posts', asyncMiddleware( (req, res, next) => {
   return res.send(posts)
 }))
 
-app.get( 'posts/:id', asyncMiddleware( (req, res, next) => { 
-  const posts = await getPosts()
+app.get('posts/:id', asyncMiddleware( (req, res, next) => { 
   const postID = req.params.id
-  return res.send(posts.postID)
+  const post = await getPost(postID)
+  return res.send(post)
 }))
 
 
-app.get( 'api/posts', asyncMiddleware( (req, res, next) => { 
+app.get('api/posts', asyncMiddleware( (req, res, next) => { 
   const posts = await getPosts()
   return res.JSON(posts)
 }))
@@ -40,7 +40,7 @@ async function getPosts() {
 
 async function getPost(id) {
   try {
-    const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
+    const response = await axios.get(`https://jsonplaceholder.typicode.com/posts${id}`)
     return response
   } catch (error) {
     console.error(error)
