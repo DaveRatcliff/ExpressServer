@@ -2,11 +2,13 @@ const axios = require('axios')
 const express = require('express')
 const handlebars = require('handlebars')
 const exphbs  = require('express-handlebars');
+const bodyParser = require('body-parser');
 const app = express()
 const PORT = process.env.PORT || 3000;
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
+app.use(bodyParser.json());
 
 const asyncMiddleware = fn =>
   (req, res, next) => {
@@ -37,8 +39,8 @@ app.get('/api/posts', asyncMiddleware( async (req, res, next) => {
 
 async function getPosts() {
   try {
-    const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
-    return response.data
+    //const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
+    //return response.data
   } catch (error) {
     console.log("somethings wrong")
   }
@@ -46,8 +48,8 @@ async function getPosts() {
 
 async function getPost(id) {
   try {
-    const response = await axios.get(`https://jsonplaceholder.typicode.com/posts?id=${id}`)
-    return response.data
+    //const response = await axios.get(`https://jsonplaceholder.typicode.com/posts?id=${id}`)
+    //return response.data
   } catch (error) {
     console.error(error)
   }
