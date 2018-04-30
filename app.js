@@ -12,18 +12,9 @@ cors = require('cors')
 
 /*
 Goal:
-1. Update API to receive a completed game
-X Create a DB model to hold a game
-X Create API endpoint to store a game
-X Create API endpoint to list games
-X Create API endpoint to list a single game
-X Test with Postman
-
-2. Update API "Admin" to show list of games and game detail
-
-3. Update UI to send completed games to the API
-X Have a variable hold game state
-X Send to API when game finishes
+- Modify UI to accept "X Name:" and "Y Name:" before game starts
+- When game is done, send in the names and store in the database
+- If no names provided, default to anonymous
 */
 
 app.use(cors())
