@@ -1,14 +1,15 @@
 const Sequelize = require("sequelize");
 const DATABASE_URL = process.env.DATABASE_URL;
 
-const sequelizeOptions = new Sequelize(DATABASE_URL, {
+const sequelize = new Sequelize(DATABASE_URL, {
     dialect: 'postgres',
+    operatorsAliases: false,
     dialectOptions: {
         ssl: true
     }
 });
 
-const Post = sequelizeOptions.define('post', {
+const Post = sequelize.define('Post', {
     title: {
         type: Sequelize.STRING,
         allowNull: false
@@ -20,6 +21,6 @@ const Post = sequelizeOptions.define('post', {
 })
 
 module.exports = {
-    sequelizeOptions,
-    post
+    sequelize,
+    Post
 }
