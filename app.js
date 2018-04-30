@@ -8,7 +8,25 @@ const bodyParser = require('body-parser')
 const app = express()
 const PORT = process.env.PORT || 3000
 const db = require('./db.js')
+cors = require('cors')
 
+/*
+Goal:
+1. Update API to receive a completed game
+X Create a DB model to hold a game
+X Create API endpoint to store a game
+X Create API endpoint to list games
+X Create API endpoint to list a single game
+X Test with Postman
+
+2. Update API "Admin" to show list of games and game detail
+
+3. Update UI to send completed games to the API
+X Have a variable hold game state
+X Send to API when game finishes
+*/
+
+app.use(cors())
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(bodyParser.json())
@@ -23,59 +41,56 @@ app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
 
 /* HTML */
 
-app.get(['/', '/posts'], asyncMiddleware( async (req, res, next) => { 
-  const posts = await getPosts()
-  return res.render('home', { posts })
+app.get(['/', '/games'], asyncMiddleware( async (req, res, next) => { 
+  const games = await getGames()
+  return res.render('home', { games })
 }))
 
-app.get('/posts/:id', asyncMiddleware( async (req, res, next) => { 
+app.get('/games/:id', asyncMiddleware( async (req, res, next) => { 
   const id = req.params.id
-  const post = await getPost(id)
-  return res.render('post', { post })
+  const game = await getGame(id)
+  return res.render('game', { game })
 }))
 
 /* API */
 
-app.post('/api/posts', asyncMiddleware( async (req, res, next) => {
-  const data = req.body
-  const post = await createPost(data)
-  return res.json(post)
+app.post('/api/games', asyncMiddleware( async (req, res, next) => {
+  const { moves } = req.body // { moves: ['x','o', ...]}
+  const game = await createGame({ moves })
+  return res.json(game)
 }))
 
-app.get('/api/posts', asyncMiddleware( async (req, res, next) => { 
-  const posts = await getPosts()
-  return res.json(posts)
-}))
-
-app.get('/api/posts/:id', asyncMiddleware( async (req, res, next) => {
+app.get('/api/games/:id', asyncMiddleware( async (req, res, next) => {
   const id = req.params.id 
-  const post = await getPost(id)
-  return res.json(post)
+  const game = await getGame(id)
+  return res.json(game)
+}))
+
+app.get('/api/games', asyncMiddleware( async (req, res, next) => { 
+  const games = await getGames()
+  return res.json(games)
 }))
 
 /* Services */
 
-async function createPost (data) {
-  const post = await db.Post.create(data)
-  return post
+async function createGame ({ moves }) {
+  // TODO -- Validate moves
+  const game = await db.Game.create({ moves })
+  return game
 }
 
-async function getPosts() {
+async function getGames() {
   try {
-    //const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
-    //return response.data
-    const posts = await db.Post.findAll()
-    return posts
+    const games = await db.Game.findAll()
+    return games
   } catch (error) {
     console.error(error)
   }
 }
 
-async function getPost(id) {
+async function getGame(id) {
   try {
-    //const response = await axios.get(`https://jsonplaceholder.typicode.com/posts?id=${id}`)
-    //return response.data
-    return await db.Post.findById(id)
+    return await db.Game.findById(id)
   } catch (error) {
     console.error(error)
   }
