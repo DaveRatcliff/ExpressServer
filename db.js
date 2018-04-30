@@ -73,7 +73,7 @@ Game.beforeValidate(game => {
     // - (X's >= 3 && O's >= 3)
     // - (X's - O's = 0 || 1)
     // - (X <=5 && O's <= 4)
-    if(!(totals.x >= 3 && totals.o >= 3) || 
+    if(!(totals.x >= 3 && totals.o >= 2) || 
     !(totals.x - totals.o === 0 || totals.x - totals.o === 1) ||
     !(totals.x <= 5 && totals.o <= 4)) {
         throw new Error('Must be valid game board!')
